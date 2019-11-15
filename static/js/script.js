@@ -118,7 +118,7 @@ function addSuggestion(textToAdd) {
 		$(' <div class="singleCard"> <div class="suggestions"><div class="menu"></div></div></diV>').appendTo('.chats').hide().fadeIn(1000);
 		// Loop through suggestions
 		for (i = 0; i < suggLength; i++) {
-			$('<div class="menuChips">' + suggestions[i].title + '</div>').appendTo('.menu');
+			$('<div class="menuChips" data-payload=\''+(suggestions[i].payload)+'\'>' + suggestions[i].title + "</div>").appendTo(".menu");
 		}
 		scrollToBottomOfResults();
 	}, 1000);
@@ -128,7 +128,9 @@ function addSuggestion(textToAdd) {
 // on click of suggestions, get the value and send to rasa
 $(document).on("click", ".menu .menuChips", function () {
 	var text = this.innerText;
+	var payload= this.getAttribute('data-payload');
+	console.log("button payload: ",this.getAttribute('data-payload'))
 	setUserResponse(text);
-	send(text);
+	send(payload);
 	$('.suggestions').remove(); //delete the suggestions 
 });
